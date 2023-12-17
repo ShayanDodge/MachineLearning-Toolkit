@@ -19,36 +19,45 @@ def prepare_country_stats(oecd_bli, gdp_per_capita):
     # The inplace argument is set to True to modify the DataFrame directly
     # instead of creating a new copy.
     gdp_per_capita.rename(columns={"2015": "GDP per capita"}, inplace=True)
-
+    # The code you provided is a Python statement that sets the index of a DataFrame
+    # named gdp_per_capita to the Country column. 
     gdp_per_capita.set_index("Country", inplace=True)
-
+    # This merges two DataFrames named oecd_bli and gdp_per_capita based on their indices.
+    # The .merge() method is used to combine the two DataFrames into a single DataFrame 
+    # called full_country_stats. The left_index=True and right_index=True parameters are
+    # used to specify that the merge should be performed based on the indices of the two
+    # DataFrames.
     full_country_stats = pd.merge(left=oecd_bli, right=gdp_per_capita,
                                   left_index=True, right_index=True)
-    
+    # The .sort_values() method is then used to sort the DataFrame based on the GDP 
+    # per capita column. 
     full_country_stats.sort_values(by="GDP per capita", inplace=True)
-
     remove_indices = [0, 1, 6, 8, 33, 34, 35]
-
     keep_indices = list(set(range(36)) - set(remove_indices))
-    
     return full_country_stats[["GDP per capita", 'Life satisfaction']].iloc[keep_indices]
 
-# Load the data
+## Load the data
 oecd_bli = pd.read_csv("oecd_bli_2015.csv", thousands=',')
 gdp_per_capita = pd.read_csv("gdp_per_capita.csv",thousands=',',delimiter='\t', encoding='latin1', na_values="n/a")
 
-# Prepare the data
+## Prepare the data
 country_stats = prepare_country_stats(oecd_bli, gdp_per_capita)
+# The code you provided is a Python statement that uses the np.c_ function from the NumPy
+# library to concatenate the GDP per capita column of a DataFrame named country_stats into
+# a 2D array. 
+X = np.c_[country_stats["GDP per capita"]]
+y = np.c_[country_stats["Life satisfaction"]]
 
-# X = np.c_[country_stats["GDP per capita"]]
-# y = np.c_[country_stats["Life satisfaction"]]
-# # Visualize the data
-# country_stats.plot(kind='scatter', x="GDP per capita", y='Life satisfaction')
-# plt.show()
-# # Select a linear model
-# model = sklearn.linear_model.LinearRegression()
-# # Train the model
-# model.fit(X, y)
-# # Make a prediction for Cyprus
-# X_new = [[22587]] # Cyprus's GDP per capita
-# print(model.predict(X_new)) # outputs [[ 5.96242338]]
+## Visualize the data
+country_stats.plot(kind='scatter', x="GDP per capita", y='Life satisfaction')
+plt.show()
+
+## Select a linear model
+model = sklearn.linear_model.LinearRegression()
+
+## Train the model
+model.fit(X, y)
+
+## Make a prediction for Cyprus
+X_new = [[22587]] # Cyprus's GDP per capita
+print(model.predict(X_new)) # outputs [[ 5.96242338]]
