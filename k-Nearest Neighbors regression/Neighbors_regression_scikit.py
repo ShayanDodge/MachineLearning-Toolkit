@@ -2,7 +2,7 @@
 ## Call essential packages
 import numpy as np
 import matplotlib.pyplot as plt
-from sklearn.linear_model import LinearRegression
+from sklearn.neighbors import KNeighborsRegressor
 
 ## Read data from csv file
 data = np.loadtxt("c:/Users/dodge/OneDrive/Desktop/laptop/Research/Machine Learning/Codes/Machine_Learning/Data/Advertising.csv",delimiter=",", skiprows=1)
@@ -18,7 +18,7 @@ x = np.array(ads)
 y = np.array(sale)
 
 ## Call training functions 
-model = LinearRegression().fit(X, sale)
+model = KNeighborsRegressor(n_neighbors=3).fit(X, sale)
 
 ## predict the result of new x
 y_new = model.predict(x_new)
@@ -30,7 +30,7 @@ ax.plot(x_new, y_new)
 # Add labels and title
 plt.xlabel('TV advertisement')
 plt.ylabel('Sales')
-plt.title("Linear Regression")
+plt.title("K Neighbors Regression")
 
 # Show the plot
 plt.show()
