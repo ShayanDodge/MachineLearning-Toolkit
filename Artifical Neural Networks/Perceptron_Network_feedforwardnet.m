@@ -8,7 +8,8 @@ function feedforwardnet_test
     0 0 1 1 0 0 1 1 0 0 1 1 0 0 1 1; 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1];
     out= [0 1 1 0 1 0 0 1 1 0 0 1 0 1 1 0];
     %% Creating a network
-    network = feedforwardnet(6);
+    network = feedforwardnet;
+
     network.trainParam.epochs = 500;
     network.trainParam.lr = 0.05;
     network.divideParam.testRatio = 0;
@@ -22,5 +23,5 @@ function feedforwardnet_test
     %% Simulate network and plot the result
     y=sim(network1,inp);
     plot(inp,out,inp,y,"o")
-    title("After Training");
+    title("After Training (feedforwardnet)");
     axis([-5 5 -2.0 2.0]);
