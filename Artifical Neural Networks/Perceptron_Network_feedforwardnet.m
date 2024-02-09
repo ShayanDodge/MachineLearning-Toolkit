@@ -9,14 +9,16 @@ function feedforwardnet_test
     out= [0 1 1 0 1 0 0 1 1 0 0 1 0 1 1 0];
     %% Creating a network
     network = feedforwardnet(6);
-    % network.trainParam.epochs = 500;
-    % network.trainParam.lr = 0.05;
-    % network.layers{1}.transferFcn = 'logsig';
-    % network.layers{end}.transferFcn = 'logsig';
+    network.trainParam.epochs = 500;
+    network.trainParam.lr = 0.05;
+    network.divideParam.testRatio = 0;
+    network.divideParam.valRatio = 0;
+    network.divideParam.trainRatio = 1;
+
     network1 = configure(network,inp,out);
     view(network1)
     %% Training the network 
-    network1=adapt(network1,inp,out);
+    network1=train(network1,inp,out);
     %% Simulate network and plot the result
     y=sim(network1,inp);
     plot(inp,out,inp,y,"o")
