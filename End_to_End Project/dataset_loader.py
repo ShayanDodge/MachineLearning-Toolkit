@@ -1,3 +1,4 @@
+import matplotlib.pyplot as plt
 import pandas as pd
 import sys
 import os
@@ -18,3 +19,6 @@ def load_data(csv_path):
 if __name__ == "__main__":
     df = load_data(find_directory("datasets\housing\housing.csv"))
     print(df.head())
+    print(df.info())
+    df.hist(bins=50, figsize=(20,15))
+    plt.show()
