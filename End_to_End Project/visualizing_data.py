@@ -8,7 +8,7 @@ df = dataset_loader.load_data(dataset_loader.find_directory("datasets\housing\ho
 
 df.plot(kind="scatter", x="longitude", y="latitude", alpha=0.4,
 s=df["population"]/100, label="population", figsize=(10,7),
-c="median_house_value", cmap=plt.get_cmap("jet"), colorbar=True,
-)
+c="median_house_value", cmap=plt.get_cmap("jet"), colorbar=True,)
+
 plt.legend()
 plt.show()
