@@ -26,6 +26,6 @@ split.split(df, df["income_cat"])
 for train_index, test_index in split.split(df, df["income_cat"]):
     strat_train_set = df.loc[train_index]
     strat_test_set = df.loc[test_index]
-print(strat_test_set["income_cat"].value_counts() / len(strat_test_set))
+# print(strat_test_set["income_cat"].value_counts() / len(strat_test_set))
 
 
