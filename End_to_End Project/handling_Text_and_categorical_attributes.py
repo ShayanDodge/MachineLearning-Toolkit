@@ -20,16 +20,3 @@ Df_cat_1hot = pd.DataFrame(df_cat_1hot.toarray(), columns = cat_encoder.get_feat
 # Displaying the original and one-hot encoded data
 print("\nOne-Hot Encoded Data:")
 print(Df_cat_1hot)
-
-
-
-
-
-
-
-
-
-
-
-
-print(cat_encoder.categories_)
