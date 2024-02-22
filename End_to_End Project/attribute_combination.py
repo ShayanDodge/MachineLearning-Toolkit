@@ -29,7 +29,7 @@ class CombinedAttributesAdder(BaseEstimator, TransformerMixin):
         else:
             return np.c_[X, rooms_per_household, population_per_household]
 
-
-attr_adder = CombinedAttributesAdder(add_bedrooms_per_room=False)
-data_extra_attribs = attr_adder.transform(df.values)
-print(pd.DataFrame(data_extra_attribs).head())
+if __name__ == "__main__":
+    attr_adder = CombinedAttributesAdder(add_bedrooms_per_room=False)
+    data_extra_attribs = attr_adder.transform(df.values)
+    print(pd.DataFrame(data_extra_attribs).head())
