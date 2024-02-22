@@ -3,6 +3,8 @@ from sklearn.pipeline import Pipeline
 from sklearn.impute import SimpleImputer
 from sklearn.preprocessing import StandardScaler
 from attribute_combination import CombinedAttributesAdder
+from sklearn.preprocessing import OneHotEncoder
+
 import dataset_loader
 
 #%% Simple example of pipeline
@@ -85,4 +87,21 @@ model = Pipeline(steps=[('preprocessor', preprocessor)])
 X_transformed = model.fit_transform(X)
 
 # Display the transformed data
-print("Transformed Data:\n", X_transformed)
+print("Transformed Data:\n", pd.DataFrame(X_transformed))
+
+#%% advance example of columnTransformer
+
+# # Loading the dataset
+# df = dataset_loader.load_data(dataset_loader.find_directory("datasets\housing\housing.csv"))
+# df_num = df.drop("ocean_proximity", axis=1)
+
+
+# from sklearn.compose import ColumnTransformer
+# num_attribs = list(df_num)
+# cat_attribs = ["ocean_proximity"]
+# full_pipeline = ColumnTransformer([
+# ("num", num_pipeline, num_attribs),
+# ("cat", OneHotEncoder(), cat_attribs),])
+
+# housing_prepared = full_pipeline.fit_transform(df)
+# # print(pd.DataFrame(housing_prepared))
