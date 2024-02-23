@@ -25,8 +25,8 @@ def split_train_test_by_id(data, test_ratio, id_column):
     return data.loc[~in_test_set], data.loc[in_test_set]
 
 if __name__ == "__main__":
-    import dataset_loader
-    df = dataset_loader.load_data(dataset_loader.find_directory("datasets\housing\housing.csv"))
+    from loader import*
+    df = load_data(find_directory("datasets\housing\housing.csv"))
 
     # train_set, test_set = split_train_test(df, 0.2)
     # print('The number of train set is: ', len(train_set))
