@@ -1,5 +1,5 @@
 import pandas as pd
-from dataset_spliter_sklearn import*
+from spliter_sklearn import*
 
 df_cat = df[["ocean_proximity"]]
 df_cat.head(50)

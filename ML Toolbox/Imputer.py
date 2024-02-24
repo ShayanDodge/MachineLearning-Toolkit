@@ -1,5 +1,5 @@
 import pandas as pd
-from dataset_spliter_sklearn import*
+from spliter_sklearn import*
 
 # Splitting labels and predictions
 df = strat_train_set.drop("median_house_value", axis=1)
