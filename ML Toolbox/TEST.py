@@ -1,16 +1,11 @@
 import pandas as pd
 
-# Sample data
-data = {
-    'column1': [1, 2, 3],
-    'column2': ['A', 'B', 'C'],
-    'column3': [10.1, 20.2, 30.3]}
-
-# Create a DataFrame
+# Create a sample DataFrame
+data = {'A': [1, 2, 3], 'B': [4, 5, 6], 'C': [7, 8, 9]}
 df = pd.DataFrame(data)
 
-# Extract column names
-column_names = df.columns.tolist()
+# Get the index position of the column labeled 'B'
+index_position_B = df.columns.get_loc('B')
 
-# Print the column names
-print("Column Names:", column_names)
+print("Index position of 'B':", index_position_B)
+
