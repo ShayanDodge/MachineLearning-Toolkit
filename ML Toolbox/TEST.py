@@ -1,23 +1,37 @@
-from sklearn import datasets
-from sklearn.model_selection import KFold, cross_val_score
+# Import necessary libraries
+from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error
 
-# Load the Iris dataset (Note: Linear Regression is not ideal for classification)
-iris = datasets.load_iris()
-X, y = iris.data, iris.target
+# Load a regression dataset (for example, Boston Housing dataset)
+from sklearn.datasets import load_boston
+boston = load_boston()
+X = boston.data
+y = boston.target
 
-# Create a Linear Regression model
+# Split the dataset into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Define the Linear Regression model and parameter grid
 linear_model = LinearRegression()
+param_grid = {
+    'fit_intercept': [True, False],
+    'normalize': [True, False],
+    'copy_X': [True, False]}
 
-# Create a KFold object with 5 folds
-kf = KFold(n_splits=5, shuffle=True, random_state=42)
+# Instantiate GridSearchCV
+grid_search = GridSearchCV(estimator=linear_model, param_grid=param_grid, scoring='neg_mean_squared_error', cv=5)
 
-# Use cross_val_score to perform K-fold cross-validation and obtain R-squared scores
-r2_scores = cross_val_score(linear_model, X, y, cv=kf, scoring='r2')
+# Fit GridSearchCV to the data
+grid_search.fit(X_train, y_train)
 
-# Print the cross-validation scores
-print("Cross-validation R-squared scores:", r2_scores)
+# Retrieve best parameters and best model
+best_params = grid_search.best_params_
+best_model = grid_search.best_estimator_
 
-# Calculate and print the mean and standard deviation of the R-squared scores
-print("Mean R-squared: {:.2f}".format(r2_scores.mean()))
-print("Standard deviation: {:.2f}".format(r2_scores.std()))
+# Evaluate the best model on the test set
+y_pred = best_model.predict(X_test)
+mse = mean_squared_error(y_test, y_pred)
+
+print("Best Parameters:", best_params)
+print("Mean Squared Error on Test Set:", mse)
