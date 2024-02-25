@@ -1,37 +1,52 @@
-# Import necessary libraries
-from sklearn.model_selection import train_test_split, GridSearchCV
-from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.datasets import fetch_california_housing
 from sklearn.metrics import mean_squared_error
+import matplotlib.pyplot as plt
 
-# Load a regression dataset (for example, Boston Housing dataset)
-from sklearn.datasets import load_boston
-boston = load_boston()
-X = boston.data
-y = boston.target
+# Load the California housing dataset
+california_housing = fetch_california_housing()
+X = california_housing.data
+y = california_housing.target
 
 # Split the dataset into training and testing sets
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-# Define the Linear Regression model and parameter grid
-linear_model = LinearRegression()
-param_grid = {
-    'fit_intercept': [True, False],
-    'normalize': [True, False],
-    'copy_X': [True, False]}
+# Define the RandomForestRegressor model
+rf_model = RandomForestRegressor(n_estimators=100, max_depth=20, min_samples_split=2, min_samples_leaf=1, bootstrap=True)
+rf_model.fit(X_train, y_train)
 
-# Instantiate GridSearchCV
-grid_search = GridSearchCV(estimator=linear_model, param_grid=param_grid, scoring='neg_mean_squared_error', cv=5)
+# Make predictions on the test set
+y_pred = rf_model.predict(X_test)
 
-# Fit GridSearchCV to the data
-grid_search.fit(X_train, y_train)
-
-# Retrieve best parameters and best model
-best_params = grid_search.best_params_
-best_model = grid_search.best_estimator_
-
-# Evaluate the best model on the test set
-y_pred = best_model.predict(X_test)
+# Evaluate the model on the test set
 mse = mean_squared_error(y_test, y_pred)
-
-print("Best Parameters:", best_params)
 print("Mean Squared Error on Test Set:", mse)
+
+# Analyze the errors
+errors = y_test - y_pred
+
+# Plot predicted vs. actual values
+plt.scatter(y_test, y_pred)
+plt.xlabel("Actual Values")
+plt.ylabel("Predicted Values")
+plt.title("Actual vs. Predicted Values")
+plt.show()
+
+# Plot the distribution of errors
+plt.hist(errors, bins=20)
+plt.xlabel("Errors")
+plt.ylabel("Frequency")
+plt.title("Distribution of Errors")
+plt.show()
+
+# Feature importances
+feature_importances = rf_model.feature_importances_
+feature_names = california_housing.feature_names
+
+# Display or use the feature importances as needed
+print("Feature Importances:", feature_importances)
+
+# If you want to associate feature names with their importances
+feature_importance_dict = dict(zip(feature_names, feature_importances))
+print("Feature Importances (associated with feature names):", feature_importance_dict)
