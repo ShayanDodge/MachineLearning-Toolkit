@@ -1,0 +1,75 @@
+digraph {
+	"Input
+(224x224x3 Image)" [fillcolor=lightblue fontsize=10 shape=rectangle style=filled]
+	"Convolutional Layer
+(7x7 filters, 64 channels, stride 2)" [fillcolor=lightblue fontsize=10 shape=rectangle style=filled]
+	"Input
+(224x224x3 Image)" -> "Convolutional Layer
+(7x7 filters, 64 channels, stride 2)"
+	"Convolutional Layer
+(7x7 filters, 64 channels, stride 2)" [fillcolor=lightblue fontsize=10 shape=rectangle style=filled]
+	"Batch Normalization" [fillcolor=lightblue fontsize=10 shape=rectangle style=filled]
+	"Convolutional Layer
+(7x7 filters, 64 channels, stride 2)" -> "Batch Normalization"
+	"Batch Normalization" [fillcolor=lightblue fontsize=10 shape=rectangle style=filled]
+	"ReLU Activation" [fillcolor=lightblue fontsize=10 shape=rectangle style=filled]
+	"Batch Normalization" -> "ReLU Activation"
+	"ReLU Activation" [fillcolor=lightblue fontsize=10 shape=rectangle style=filled]
+	"Max Pooling Layer
+(3x3 max pool, stride 2)" [fillcolor=lightblue fontsize=10 shape=rectangle style=filled]
+	"ReLU Activation" -> "Max Pooling Layer
+(3x3 max pool, stride 2)"
+	"Max Pooling Layer
+(3x3 max pool, stride 2)" [fillcolor=lightblue fontsize=10 shape=rectangle style=filled]
+	"Residual Blocks (Stage 1)
+(3 blocks, each with 64 filters)" [fillcolor=lightblue fontsize=10 shape=rectangle style=filled]
+	"Max Pooling Layer
+(3x3 max pool, stride 2)" -> "Residual Blocks (Stage 1)
+(3 blocks, each with 64 filters)"
+	"Residual Blocks (Stage 1)
+(3 blocks, each with 64 filters)" [fillcolor=lightblue fontsize=10 shape=rectangle style=filled]
+	"Residual Blocks (Stage 2)
+(4 blocks, each with 128 filters)" [fillcolor=lightblue fontsize=10 shape=rectangle style=filled]
+	"Residual Blocks (Stage 1)
+(3 blocks, each with 64 filters)" -> "Residual Blocks (Stage 2)
+(4 blocks, each with 128 filters)"
+	"Residual Blocks (Stage 2)
+(4 blocks, each with 128 filters)" [fillcolor=lightblue fontsize=10 shape=rectangle style=filled]
+	"Residual Blocks (Stage 3)
+(6 blocks, each with 256 filters)" [fillcolor=lightblue fontsize=10 shape=rectangle style=filled]
+	"Residual Blocks (Stage 2)
+(4 blocks, each with 128 filters)" -> "Residual Blocks (Stage 3)
+(6 blocks, each with 256 filters)"
+	"Residual Blocks (Stage 3)
+(6 blocks, each with 256 filters)" [fillcolor=lightblue fontsize=10 shape=rectangle style=filled]
+	"Residual Blocks (Stage 4)
+(3 blocks, each with 512 filters)" [fillcolor=lightblue fontsize=10 shape=rectangle style=filled]
+	"Residual Blocks (Stage 3)
+(6 blocks, each with 256 filters)" -> "Residual Blocks (Stage 4)
+(3 blocks, each with 512 filters)"
+	"Residual Blocks (Stage 4)
+(3 blocks, each with 512 filters)" [fillcolor=lightblue fontsize=10 shape=rectangle style=filled]
+	"Average Pooling Layer
+(Global average pooling)" [fillcolor=lightblue fontsize=10 shape=rectangle style=filled]
+	"Residual Blocks (Stage 4)
+(3 blocks, each with 512 filters)" -> "Average Pooling Layer
+(Global average pooling)"
+	"Average Pooling Layer
+(Global average pooling)" [fillcolor=lightblue fontsize=10 shape=rectangle style=filled]
+	"Fully Connected Layer
+(1000 neurons)" [fillcolor=lightblue fontsize=10 shape=rectangle style=filled]
+	"Average Pooling Layer
+(Global average pooling)" -> "Fully Connected Layer
+(1000 neurons)"
+	"Fully Connected Layer
+(1000 neurons)" [fillcolor=lightblue fontsize=10 shape=rectangle style=filled]
+	"Softmax Activation" [fillcolor=lightblue fontsize=10 shape=rectangle style=filled]
+	"Fully Connected Layer
+(1000 neurons)" -> "Softmax Activation"
+	"Softmax Activation" [fillcolor=lightblue fontsize=10 shape=rectangle style=filled]
+	"Output
+(Class probabilities for 1000 classes)" [fillcolor=lightblue fontsize=10 shape=rectangle style=filled]
+	"Softmax Activation" -> "Output
+(Class probabilities for 1000 classes)"
+	rankdir=LR size=10
+}
